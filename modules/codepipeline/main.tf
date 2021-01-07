@@ -22,6 +22,8 @@ locals {
 
 # Utilizamos la image con terraform que nos provee hashicorp de forma que no habria 
 # que descargarla cada vez, va unida a la version que en este caso es latest 
+# la he metido temporalmente en Quay.io mya que docker tiene una limitacion de pulls en el free
+
 resource "aws_codebuild_project" "project" {
   count        = length(local.projects)
   name         = "${local.namespace}-${local.projects[count.index]}"
@@ -35,7 +37,7 @@ resource "aws_codebuild_project" "project" {
 # este nuevo map es convertido en una lita JSON con una expresion for
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "hashicorp/terraform:${var.terraform_version}" 
+    image        = "quay.io/lmtbelmonte01/terraform:${var.terraform_version}" 
     type         = "LINUX_CONTAINER"
   }
 
