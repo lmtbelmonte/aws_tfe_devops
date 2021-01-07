@@ -1,31 +1,31 @@
 # Luis merino : Manning - automatizacion IaC con DevOps 
 # 
-# Construccion de un modelo similar a Terraform EDnterprise coin AWS pipeline y terraform opensource
+# Construccion de un modelo similar a Terraform EDnterprise con AWS pipeline y terraform opensource
 
-# main - modulo primncipal que llama a todos los demas  
+# main - codigo prinncipal que llama a todos los demas  
 
 variable "aws" {
-  type = object({access_key = string, secret_key = string, region = string})
+  type = object({ access_key = string, secret_key = string, region = string })
 }
- 
+
 variable "vcs_repo" {
-  type = object({identifier = string, branch = string, oauth_token = string})
+  type = object({ identifier = string, branch = string, oauth_token = string })
 }
- 
+
 provider "aws" {
   access_key = var.aws.access_key
   secret_key = var.aws.secret_key
   region     = var.aws.region
 }
- 
+
 module "s3backend" {
-  source = "scottwinkler/s3backend/aws" 
+  source = "scottwinkler/s3backend/aws"
 }
- 
+
 module "codepipeline" { #B
-  source            = "./modules/codepipeline"
-  name              = "terraform-in-action"
-  vcs_repo          = var.vcs_repo
+  source   = "./modules/codepipeline"
+  name     = "terraform-in-action"
+  vcs_repo = var.vcs_repo
   environment = {
     AWS_ACCESS_KEY_ID     = var.aws.access_key
     AWS_SECRET_ACCESS_KEY = var.aws.secret_key
