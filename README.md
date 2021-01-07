@@ -1,6 +1,6 @@
 # Modelo devops similar a Terraform Enterprise combinando terraform , Aws pipeline 
 #
-# No se incluyen terraform.tfvars que es necesario para su funcionamiento con el formato
+No se incluye el terraform.tfvars que es necesario para su funcionamiento con el formato
 
 # terraform.tfvars
 
